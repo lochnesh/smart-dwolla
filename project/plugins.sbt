@@ -1,5 +1,7 @@
 resolvers += Resolver.url("fix-sbt-plugin-releases", url("https://dl.bintray.com/sbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns)
 
+resolvers += "simplytyped" at "http://simplytyped.github.io/repo/releases"
+
 // The Play plugin
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.4.2")
 
@@ -17,4 +19,5 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-digest" % "1.1.0")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-mocha" % "1.1.0")
 
+addSbtPlugin("com.simplytyped" % "sbt-antlr4" % "0.7.5")
 
