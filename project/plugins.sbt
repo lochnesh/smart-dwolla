@@ -1,5 +1,3 @@
-resolvers += Resolver.url("fix-sbt-plugin-releases", url("https://dl.bintray.com/sbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns)
-
 resolvers += "simplytyped" at "http://simplytyped.github.io/repo/releases"
 
 // The Play plugin
