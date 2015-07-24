@@ -8,6 +8,7 @@ GET     /callback                   controllers.Application.callback(code: Strin
 GET     /smartTask/create           controllers.SmartTasks.create
 POST    /smartTask/build            controllers.SmartTasks.build
 POST    /smartTask/complete         controllers.SmartTasks.complete
+GET     /webjars/*file              controllers.WebJarAssets.at(file)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

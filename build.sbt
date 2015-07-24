@@ -10,7 +10,9 @@ libraryDependencies ++= Seq(
   jdbc,
   cache,
   ws,
-  "com.dwolla"          %  "dwolla-java-sdk"   %"2.0.5",
+  "com.dwolla"          %  "dwolla-java-sdk"   % "2.0.5",
+  "org.webjars"         %% "webjars-play"      % "2.4.0-1",
+  "org.webjars"         %  "bootstrap"         % "3.1.1-2",
   specs2 % Test
 )
 

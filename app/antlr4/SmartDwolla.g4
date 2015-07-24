@@ -1,8 +1,8 @@
 grammar SmartDwolla;
 
 sendSentence :
-     SEND '$'?AMOUNT DOLLARS? TO? ID
-     | SEND ID '$'?AMOUNT;
+     SEND '$'?AMOUNT DOLLARS? TO? ID+
+     | SEND ID+ '$'?AMOUNT;
 
 SEND : 'send' | 'Send' ;
 AMOUNT : [0-9]+'.'?[0-9]?[0-9]? | '.'[0-9][0-9]? ;

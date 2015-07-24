@@ -16,6 +16,7 @@ class SmartDwollaSpec extends Specification {
       SmartSend("Skyler", 5) must_== smartDwolla.parse("Send 5 To Skyler").get
       SmartSend("Skyler",1.11) must_== smartDwolla.parse("Send 1.11 Skyler").get
       SmartSend("Skyler", 5) must_== smartDwolla.parse("Send Skyler $5").get
+      SmartSend("Sends", 5) must_== smartDwolla.parse("Send Sends $5").get
     }
 
     "send given various dollar formats" in new Setup {
@@ -42,8 +43,8 @@ class SmartDwollaSpec extends Specification {
       SmartSend("Skyler", 1) must_== smartDwolla.parse("Send 1 Dollar to Skyler").get
     }
 
-//    "send using first and last name" in new Setup {
-//      SmartSend("Jason Mead", 1) must_== smartDwolla.parse("Send 1 To Jason Mead").get
-//    }
+    "send using first and last name" in new Setup {
+      SmartSend("Jason Mead", 1) must_== smartDwolla.parse("Send 1 To Jason Mead").get
+    }
   }
 }

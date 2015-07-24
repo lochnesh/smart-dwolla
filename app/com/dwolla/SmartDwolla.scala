@@ -20,7 +20,8 @@ class SmartDwolla {
 
     listener.result match {
       case Some(ctx) =>
-        Some(SmartSend(ctx.ID.toString, BigDecimal(ctx.AMOUNT.toString)))
+        val searchTerm = ctx.ID.toArray.mkString(" ")
+        Some(SmartSend(searchTerm, BigDecimal(ctx.AMOUNT.toString)))
       case None => None
     }
   }
