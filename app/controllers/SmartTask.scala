@@ -26,18 +26,43 @@ class SmartTasks @Inject()(val messagesApi: MessagesApi) extends Controller with
     )(SmartTask.apply)(SmartTask.unapply)
   )
 
+  val smartConfirmForm: Form[SmartTaskConfirm] = Form(
+    mapping(
+      "command" -> text,
+      "dwollaId" -> text,
+      "name" -> text,
+      "image" -> text,
+      "amount" -> bigDecimal,
+      "pin" -> text
+    )(SmartTaskConfirm.apply)(SmartTaskConfirm.unapply)
+  )
+
   def build() = Action { implicit request =>
     smartForm.bindFromRequest.fold(
-      hasErrors => {},
+      hasErrors => {
+        Redirect(routes.SmartTasks.create())
+      },
       smartForm => {
         val token = request.session.get("token").getOrElse(throw new Exception("No token found"))
         val parser = new SmartDwolla
         val smartSend = parser.parse(smartForm.command).getOrElse(throw new Exception("unable to parse"))
         val dwolla = new Builder().setEndpoint(BASE_URL).build().create(classOf[DwollaServiceSync])
         val searchResponse = dwolla.getUserContacts(token, smartSend.receiver, "", 1)
-        val contactId = searchResponse.Response(0).Id
-        val response = dwolla.send(token, new DwollaTypedBytes(new Gson(), new SendRequest("1234", contactId, smartSend.amount.toDouble)))
-        Redirect(routes.SmartTasks.create())
+        val contact = searchResponse.Response(0)
+        val contactId = contact.Id
+        val confirm = SmartTaskConfirm(smartForm.command, contact.Id, contact.Name, contact.Image, smartSend.amount, "")
+        Ok(views.html.smartTaskConfirm(smartConfirmForm.fill(confirm)))
+      }
+    )
+  }
+
+  def complete() = Action { implicit request =>
+    smartConfirmForm.bindFromRequest.fold(
+      hasErrors => {},
+      form => {
+        val token = request.session.get("token").getOrElse(throw new Exception("No token found"))
+        val dwolla = new Builder().setEndpoint(BASE_URL).build().create(classOf[DwollaServiceSync])
+        val response = dwolla.send(token, new DwollaTypedBytes(new Gson(), new SendRequest(form.pin, form.dwollaId, form.amount.toDouble)))
       }
     )
     Redirect(routes.SmartTasks.create())
@@ -45,3 +70,4 @@ class SmartTasks @Inject()(val messagesApi: MessagesApi) extends Controller with
 }
 
 case class SmartTask(command: String)
+case class SmartTaskConfirm(command: String, dwollaId: String, name: String, image: String, amount: BigDecimal, pin: String)

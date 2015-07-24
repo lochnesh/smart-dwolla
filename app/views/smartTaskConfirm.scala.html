@@ -1,0 +1,18 @@
+@(form: Form[SmartTaskConfirm])(implicit messages: Messages)
+
+<div>Are you sure you want to send @form.data.get("name") $@form.data.get("amount")?</div>
+<div><img src="@form.data.get("image")"></div>
+@main("Confirm - Smart Dwolla") {
+  @helper.form(action = routes.SmartTasks.complete()) {
+  <input type="hidden" name="command" value="@form.data.get("command")" />
+  <input type="hidden" name="dwollaId" value="@form.data.get("dwollaId")" />
+  <input type="hidden" name="name" value="@form.data.get("name")" />
+  <input type="hidden" name="image" value="@form.data.get("image")" />
+  <input type="hidden" name="amount" value="@form.data.get("amount")" />
+  @helper.inputPassword(form("pin"))
+  <input type="submit" value="Yup" />
+  <a href="@routes.SmartTasks.create">
+    <input type="button" value="Nope" />
+  </a>
+  }
+}
