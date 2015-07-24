@@ -1,18 +1,22 @@
 @(form: Form[SmartTaskConfirm])(implicit messages: Messages)
 
-<div>Are you sure you want to send @form.data.get("name") $@form.data.get("amount")?</div>
-<div><img src="@form.data.get("image")"></div>
 @main("Confirm - Smart Dwolla") {
+  <div class="page-header">
+    <h1>Are you sure you want to send @form.data.get("name") $@form.data.get("amount")?</h1>
+  </div>
+  <div><img src="@form.data.get("image")"></div>
   @helper.form(action = routes.SmartTasks.complete()) {
   <input type="hidden" name="command" value="@form.data.get("command")" />
   <input type="hidden" name="dwollaId" value="@form.data.get("dwollaId")" />
   <input type="hidden" name="name" value="@form.data.get("name")" />
   <input type="hidden" name="image" value="@form.data.get("image")" />
   <input type="hidden" name="amount" value="@form.data.get("amount")" />
-  @helper.inputPassword(form("pin"))
-  <input type="submit" value="Yup" />
+  @helper.input(form("pin")) { (id, name, value, args) =>
+    <input class="form-control" type="password" name="@name" id="@id" @toHtmlArgs(args) autocomplete="off">
+  }
+  <input type="submit" class="btn btn-lg btn-success" value="Yup" />
   <a href="@routes.SmartTasks.create">
-    <input type="button" value="Nope" />
+    <input type="button" class="btn btn-lg btn-danger" value="Nope" />
   </a>
   }
 }

@@ -1,5 +1,12 @@
 @(link: String)
 
 @main("Smart Dwolla") {
-    <a href='@link'>Connect Dwolla</a>
+    <div class="jumbotron">
+        <h1>Smart Dwolla</h1>
+        <p>Smart Dwolla recognizes simple commands like "Send 5 dollars to Daren" and runs them on Dwolla.  To try it out, click the button below and connect your Dwolla account.</p>
+    </div>
+
+    <a href='@link'>
+        <button type="button" class="btn btn-lg btn-primary">Connect Dwolla</button>
+    </a>
 }

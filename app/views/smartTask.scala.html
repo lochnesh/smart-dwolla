@@ -1,10 +1,13 @@
 @(smartTaskForm: Form[SmartTask])(implicit messages: Messages)
 
 @main("Command - Smart Dwolla") {
+  <div class="page-header">
+    <h1>Enter a command</h1>
+  </div>
   @helper.form(action = routes.SmartTasks.build()) {
     @helper.input(smartTaskForm("command")) { (id, name, value, args) =>
-      <input type="text" name="@name" id="@id" @toHtmlArgs(args) autocomplete="off">
+      <input class="form-control" type="text" name="@name" id="@id" @toHtmlArgs(args) autocomplete="off">
     }
-    <input type="submit" value="Go" />
+    <input class="btn btn-lg btn-success" type="submit" value="Go" />
   }
 }
