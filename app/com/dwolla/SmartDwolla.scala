@@ -19,7 +19,8 @@ class SmartDwolla {
     walker.walk(listener, context)
 
     listener.result match {
-      case Some(ctx) => Some(SmartSend(ctx.ID.toString, BigDecimal(ctx.AMOUNT.toString)))
+      case Some(ctx) =>
+        Some(SmartSend(ctx.ID.toString, BigDecimal(ctx.AMOUNT.toString)))
       case None => None
     }
   }
