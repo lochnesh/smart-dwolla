@@ -1,5 +1,5 @@
 @(smartTaskForm: Form[SmartTask])(implicit messages: Messages)
 
-@helper.form(action = routes.Application.smartTask()) {
+@helper.form(action = routes.SmartTasks.build()) {
   @helper.inputText(smartTaskForm("command"))
 }
