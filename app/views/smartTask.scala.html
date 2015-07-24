@@ -2,7 +2,9 @@
 
 @main("Command - Smart Dwolla") {
   @helper.form(action = routes.SmartTasks.build()) {
-    @helper.inputText(smartTaskForm("command"))
+    @helper.input(smartTaskForm("command")) { (id, name, value, args) =>
+      <input type="text" name="@name" id="@id" @toHtmlArgs(args) autocomplete="off">
+    }
     <input type="submit" value="Go" />
   }
 }
