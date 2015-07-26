@@ -45,6 +45,7 @@ class SmartDwollaSpec extends Specification {
 
     "send using first and last name" in new Setup {
       SmartSend("Jason Mead", 1) must_== smartDwolla.parse("Send 1 To Jason Mead").get
+      SmartSend("Jason Mead", 2) must_== smartDwolla.parse("Send Jason Mead $2").get
     }
   }
 }
